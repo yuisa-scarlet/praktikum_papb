@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:praktikum_papb/enum/load_state.dart';
 import 'package:praktikum_papb/controller/post_controller.dart';
+import 'package:praktikum_papb/pages/post_detail_page.dart';
 
 class PostListPage extends StatelessWidget {
   final PostController postController;
@@ -28,6 +29,14 @@ class PostListPage extends StatelessWidget {
                   return ListTile(
                     title: Text(post.title),
                     subtitle: Text(post.body),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:(context) => PostDetailPage(post: post),
+                        ),
+                      );
+                    }
                   );
                 },
               );
