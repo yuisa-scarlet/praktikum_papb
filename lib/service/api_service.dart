@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:praktikum_papb/model/post.dart';
 
 class ApiService {
-  static const baseUrl = 'https://jsonplaceholder.typicode.com';
+  static const _baseUrl = 'https://jsonplaceholder.typicode.com';
 
   Future<dynamic> _get(String path) async {
     final client = HttpClient();
 
     try {
-      final request = await client.getUrl(Uri.parse('$baseUrl/$path'));
+      final request = await client.getUrl(Uri.parse('$_baseUrl/$path'));
       final response = await request.close();
       final body = await response.transform(utf8.decoder).join();
 

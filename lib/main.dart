@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:praktikum_papb/pages/post_list_page.dart';
+import 'package:praktikum_papb/pages/main_page.dart';
 import 'package:praktikum_papb/service/api_service.dart';
 import 'package:praktikum_papb/controller/post_controller.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: PostListPage(postController: postController),
+      home: MainPage(postController: postController),
     );
   }
 }

@@ -1,6 +1,6 @@
 enum LoadState {
-  initial,
-  loading,
-  loaded,
-  error
+  initial, // init
+  loading, // ketika interaksi get data
+  loaded, // hasil data berhasil didapatkan
+  error // terjadi kesalahan saat mengambil data
 }

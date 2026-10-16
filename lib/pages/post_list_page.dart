@@ -12,7 +12,7 @@ class PostListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Posts'),
+        title: const Text('Json type code'),
       ),
       body: ListenableBuilder(
         listenable: postController,
@@ -27,7 +27,12 @@ class PostListPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final post = postController.allPosts[index];
                   return ListTile(
-                    title: Text(post.title),
+                    title: Text(
+                      post.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     subtitle: Text(post.body),
                     onTap: () {
                       Navigator.push(
