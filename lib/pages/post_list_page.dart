@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praktikum_papb/enum/load_state.dart';
 import 'package:praktikum_papb/controller/post_controller.dart';
-import 'package:praktikum_papb/pages/post_detail_page.dart';
+import 'package:praktikum_papb/routes/app_routes.dart';
+import 'package:praktikum_papb/widgets/app_bottom_nav.dart';
 
 class PostListPage extends GetView<PostController> {
   const PostListPage({super.key});
@@ -31,21 +32,15 @@ class PostListPage extends GetView<PostController> {
                       ),
                     ),
                     subtitle: Text(post.body),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:(context) => PostDetailPage(post: post),
-                        ),
-                      );
-                    }
+                    onTap: () => Get.toNamed(AppRoutes.postDetailPath(post.id)),
                   );
                 },
               );
             case LoadState.error:
               return const Center(child: Text('Failed to load posts'));
         }
-      })      
+      }),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 0),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:praktikum_papb/widgets/app_bottom_nav.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -12,6 +13,7 @@ class ProfilePage extends StatelessWidget {
       body: const Center(
         child: Text('Profile Page'),
       ),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 2),
     );
   }
 }

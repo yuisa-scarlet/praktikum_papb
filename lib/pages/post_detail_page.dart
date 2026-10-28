@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:praktikum_papb/model/post.dart';
+import 'package:get/get.dart';
+import 'package:praktikum_papb/controller/post_controller.dart';
 
-class PostDetailPage extends StatefulWidget {
-  final Post post;
+class PostDetailPage extends GetView<PostController> {
+  final int? postId;
 
-  const PostDetailPage({super.key, required this.post});
+  const PostDetailPage({super.key, required this.postId});
 
-  @override
-  State<PostDetailPage> createState() => _PostDetailPageState();
-}
-
-class _PostDetailPageState extends State<PostDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final post = postId == null ? null : controller.findById(postId!);
+
+    if (post == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Post not found')),
+        body: const Center(child: Text('Post not found')),
+      );
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Detail ${widget.post.title}'),
-      ),
+      appBar: AppBar(title: Text(post.title)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text(widget.post.body),
+        child: Text(post.body),
       ),
     );
   }
