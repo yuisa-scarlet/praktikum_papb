@@ -4,6 +4,9 @@ abstract class AppRoutes {
   static const favorite = '/favorites';
   static const profile = '/profile';
 
+  static const login = '/login';
+  static const register = '/register';
+
   // halaman a
   // halaman b
 

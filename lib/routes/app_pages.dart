@@ -3,12 +3,16 @@ import 'package:praktikum_papb/pages/post_detail_page.dart';
 import 'package:praktikum_papb/pages/post_list_page.dart';
 import 'package:praktikum_papb/pages/favorite_page.dart';
 import 'package:praktikum_papb/pages/profile_page.dart';
+import 'package:praktikum_papb/pages/register_page.dart';
+import 'package:praktikum_papb/pages/login_page.dart';
+import 'package:praktikum_papb/controller/register_controller.dart';
+import 'package:praktikum_papb/controller/login_controller.dart';
 import 'package:praktikum_papb/routes/app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const initial = AppRoutes.home;
+  static const initial = AppRoutes.login;
 
   static final routes = [
     GetPage(
@@ -29,6 +33,18 @@ class AppPages {
     GetPage(
       name: AppRoutes.postDetail,
       page: () => PostDetailPage(postId: int.tryParse(Get.parameters['id'] ?? '')),    
+    ),
+    GetPage(
+      name: AppRoutes.register,
+      page: () => const RegisterPage(),
+      transition: Transition.noTransition,
+      binding: BindingsBuilder(() => Get.lazyPut(() => RegisterController()))
+    ),
+    GetPage(
+      name: AppRoutes.login,
+      page: () => const LoginPage(),
+      transition: Transition.noTransition,
+      binding: BindingsBuilder(() => Get.lazyPut(() => LoginController()))
     ),
   ];
 }
