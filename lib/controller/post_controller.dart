@@ -1,32 +1,34 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:praktikum_papb/enum/load_state.dart';
 import 'package:praktikum_papb/model/post.dart';
 import 'package:praktikum_papb/service/api_service.dart';
 
-class PostController extends ChangeNotifier {
+class PostController extends GetxController {
   final ApiService apiService;
   PostController({required this.apiService});
 
-  List<Post> _posts = [];
-  LoadState _loadState = LoadState.initial;
-  String _errorMessage = '';
+  final posts = <Post>[].obs;
+  final loadState = LoadState.initial.obs;
+  final errorMessage = ''.obs;
 
-  List<Post> get allPosts => _posts;
-  LoadState get loadState => _loadState;
-  String get errorMessage => _errorMessage;
+  @override
+  void onInit() {
+    super.onInit();
+    loadPosts();
+  }
+
+  Post? findById(int id) => posts.firstWhereOrNull((post) => post.id == id);
 
   Future<void> loadPosts() async {
-    _loadState = LoadState.loading;
-    _errorMessage = '';
-    notifyListeners();
+    loadState.value = LoadState.loading;
+    errorMessage.value = '';
 
     try {
-      _posts = await apiService.getPosts();
-      _loadState = LoadState.loaded;
+      posts.value = await apiService.getPosts();
+      loadState.value = LoadState.loaded;
     } catch (e) {
-      _errorMessage = e.toString();
-      _loadState = LoadState.error;
+      errorMessage.value = e.toString();
+      loadState.value = LoadState.error;
     }
-    notifyListeners();
   }
 }
