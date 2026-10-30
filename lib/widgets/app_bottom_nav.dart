@@ -8,9 +8,9 @@ class AppBottomNav extends StatelessWidget {
   const AppBottomNav({super.key, required this.currentIndex});
 
   static const _routes = [
-    AppRoutes.home,
-    AppRoutes.favorite,
-    AppRoutes.profile
+    AppRoutes.home, // 0
+    AppRoutes.favorite, // 1
+    AppRoutes.profile // 2
   ];
 
   @override

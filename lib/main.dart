@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:praktikum_papb/binding/initial_binding.dart';
 import 'package:praktikum_papb/database/app_database.dart';
 import 'package:praktikum_papb/routes/app_pages.dart';
-import 'package:praktikum_papb/service/api_service.dart';
-import 'package:praktikum_papb/controller/post_controller.dart';
 import 'package:praktikum_papb/service/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  final apiService = ApiService();
-  Get.put(AuthService(database: AppDatabase())); 
-  Get.put(PostController(apiService: apiService)..loadPosts());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  final prefs = await SharedPreferences.getInstance();
 
+  await Get.putAsync(
+    () async => await AuthService(
+      database: AppDatabase(),
+      prefs: prefs
+    ).init(),
+    permanent: true,
+  );
   runApp(MyApp());
 }
 
@@ -24,6 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+      initialBinding: InitialBinding(),
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
     );

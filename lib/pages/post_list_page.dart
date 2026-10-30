@@ -17,27 +17,27 @@ class PostListPage extends GetView<PostController> {
       body: Obx(() {
         switch (controller.loadState.value) {
           case LoadState.initial:
-            case LoadState.loading:
-              return const Center(child: CircularProgressIndicator());
-            case LoadState.loaded:
-              return ListView.builder(
-                itemCount: controller.posts.length,
-                itemBuilder: (context, index) {
-                  final post = controller.posts[index];
-                  return ListTile(
-                    title: Text(
-                      post.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+          case LoadState.loading:
+            return const Center(child: CircularProgressIndicator());
+          case LoadState.loaded:
+            return ListView.builder(
+              itemCount: controller.posts.length,
+              itemBuilder: (context, index) {
+                final post = controller.posts[index];
+                return ListTile(
+                  title: Text(
+                    post.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
-                    subtitle: Text(post.body),
-                    onTap: () => Get.toNamed(AppRoutes.postDetailPath(post.id)),
-                  );
-                },
-              );
-            case LoadState.error:
-              return const Center(child: Text('Failed to load posts'));
+                  ),
+                  subtitle: Text(post.body),
+                  onTap: () => Get.toNamed(AppRoutes.postDetailPath(post.id)),
+                );
+              },
+            );
+          case LoadState.error:
+            return const Center(child: Text('Failed to load posts'));
         }
       }),
       bottomNavigationBar: const AppBottomNav(currentIndex: 0),

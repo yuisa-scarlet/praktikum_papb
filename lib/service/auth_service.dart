@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:praktikum_papb/database/app_database.dart';
 import 'package:praktikum_papb/model/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthException implements Exception {
   final String message;
@@ -15,13 +16,25 @@ class AuthException implements Exception {
 }
 
 class AuthService extends GetxService {
-  final AppDatabase database;
+  static const _sessionKey = 'session_user_id';
 
-  AuthService({required this.database});
+  final AppDatabase database;
+  final SharedPreferences prefs;
+
+  AuthService({required this.database, required this.prefs});
 
   final currentUser = Rxn<User>();
 
   bool get isLoggedIn => currentUser.value != null;
+
+  Future<AuthService> init() async {
+    final userId = prefs.getInt(_sessionKey);
+    if (userId != null) {
+      final user = await database.findUserById(userId);
+      currentUser.value = user;
+    }
+    return this;
+  }
 
   Future<void> register({
     required String name,
@@ -54,10 +67,12 @@ class AuthService extends GetxService {
       throw AuthException('Invalid email or password');
     }
 
+    await prefs.setInt(_sessionKey, user.id!);
     currentUser.value = user;
   }
 
   Future<void> logout() async {
+    await prefs.remove(_sessionKey);
     currentUser.value = null;
   }
 
