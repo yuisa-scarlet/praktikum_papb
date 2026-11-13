@@ -43,9 +43,9 @@ class AuthService extends GetxService {
   }) async {
     final normalizeEmail = email.trim().toLowerCase();
 
-    final existsUser = await database.findUserByEmail(email);
+    final existsUser = await database.findUserByEmail(normalizeEmail);
     if (existsUser != null) {
-      throw Exception('User with this email already exists');
+      throw AuthException('User with this email already exists');
     }
 
     await database.insertUser(User(

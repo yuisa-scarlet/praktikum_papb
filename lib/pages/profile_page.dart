@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:praktikum_papb/routes/app_routes.dart';
 import 'package:praktikum_papb/service/auth_service.dart';
 import 'package:praktikum_papb/widgets/app_bottom_nav.dart';
 
@@ -69,7 +70,8 @@ class ProfilePage extends StatelessWidget {
     );
 
     if (result == true) {
-      auth.logout();
+      await auth.logout();
+      Get.offAllNamed(AppRoutes.login);
     }
   }
 }
