@@ -2,15 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Mode",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "Profile Mode",
+            "name": "Dev (Debug)",
             "request": "launch",
             "type": "dart",
-            "args": ["--profile"]
+            "args": ["--flavor", "dev", "--dart-define-from-file=config/dev.json"]
+        },
+        {
+            "name": "Prod (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--flavor", "prod", "--dart-define-from-file=config/prod.json"]
+        },
+        {
+            "name": "Prod (Profile)",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--profile", "--flavor", "prod", "--dart-define-from-file=config/prod.json"]
         }
     ]
 }

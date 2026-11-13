@@ -1,9 +1,10 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:praktikum_papb/config/app_config.dart';
 import 'package:praktikum_papb/model/user.dart';
 
 class AppDatabase {
-  static const _dbName = 'praktikum_papb.db';
+  static const _dbName = AppConfig.dbName;
   static const _dbVersion = 1;
   static const _tableUsers = 'users';
 

@@ -1,0 +1,5 @@
+{
+  "ENV": "dev",
+  "BASE_URL": "https://jsonplaceholder.typicode.com",
+  "DB_NAME": "praktikum_papb_dev.db"
+}

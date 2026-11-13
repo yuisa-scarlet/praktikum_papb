@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:praktikum_papb/binding/initial_binding.dart';
+import 'package:praktikum_papb/config/app_config.dart';
 import 'package:praktikum_papb/database/app_database.dart';
 import 'package:praktikum_papb/routes/app_pages.dart';
 import 'package:praktikum_papb/service/auth_service.dart';
+import 'package:praktikum_papb/service/notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -18,7 +20,11 @@ Future<void> main() async {
     ).init(),
     permanent: true,
   );
-  runApp(MyApp());
+  await Get.putAsync(
+    () => NotificationService().init(),
+    permanent: true,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,13 +33,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter API List',
+      title: AppConfig.isDev ? 'PAPB Dev' : 'PAPB',
+      debugShowCheckedModeBanner: AppConfig.isDev,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       initialBinding: InitialBinding(),
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      onReady: () => Get.find<NotificationService>().handleLaunchPayload(),
     );
   }
 }

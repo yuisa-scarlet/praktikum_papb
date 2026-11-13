@@ -9,6 +9,8 @@ import 'package:praktikum_papb/pages/register_page.dart';
 import 'package:praktikum_papb/pages/login_page.dart';
 import 'package:praktikum_papb/controller/register_controller.dart';
 import 'package:praktikum_papb/controller/login_controller.dart';
+import 'package:praktikum_papb/controller/notification_controller.dart';
+import 'package:praktikum_papb/pages/notification_page.dart';
 import 'package:praktikum_papb/routes/app_routes.dart';
 
 class AppPages {
@@ -33,6 +35,12 @@ class AppPages {
       name: AppRoutes.profile,
       page: () => const ProfilePage(),
       transition: Transition.noTransition,
+      middlewares: [AuthMiddleware()],
+    ),
+    GetPage(
+      name: AppRoutes.notification,
+      page: () => const NotificationPage(),
+      binding: BindingsBuilder(() => Get.lazyPut(() => NotificationController())),
       middlewares: [AuthMiddleware()],
     ),
     GetPage(

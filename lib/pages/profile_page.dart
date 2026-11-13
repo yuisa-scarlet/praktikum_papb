@@ -34,6 +34,12 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: 8),
               Text('Created at: ${user.createdAt}'),
               const SizedBox(height: 8),
+              OutlinedButton.icon(
+                onPressed: () => Get.toNamed(AppRoutes.notification),
+                icon: const Icon(Icons.notifications_outlined),
+                label: const Text('Notification'),
+              ),
+              const SizedBox(height: 8),
               FilledButton(
                 onPressed: () {
                   _confirmDialog(auth);
